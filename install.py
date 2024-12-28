@@ -12,7 +12,7 @@ if sys.platform == "win32":
 
 postDeps = {
     "pip": "sudo apt install -y pip",
-    "go": "sudo apt install -y golang",
+    "go": "sudo apt install -y golang-go",
     "assetfinder": "sudo apt install -y assetfinder",
     "subfinder": "sudo apt install -y subfinder",
     "hakrawler": "sudo apt install -y hakrawler",
