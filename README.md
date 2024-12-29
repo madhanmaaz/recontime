@@ -16,7 +16,7 @@ cd recontime
 ```
 - install dependencies
 ```bash
-sudo ./install.sh
+./install.sh
 ```
 - run
 ```bash

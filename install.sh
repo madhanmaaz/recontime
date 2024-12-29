@@ -6,9 +6,9 @@ RED="\033[31m"
 GREEN="\033[32m"
 CYAN="\033[36m"
 
-# Ensure script is run as root
-if [[ $EUID -ne 0 ]]; then
-    echo -e "${RED}Please run as root or use sudo.${RESET}"
+# Ensure script is NOT run as root
+if [[ $EUID -eq 0 ]]; then
+    echo -e "${RED}Please do not run this script as root. Use a non-root user with sudo.${RESET}"
     exit 1
 fi
 
@@ -53,11 +53,11 @@ installGo() {
 
     if [[ -d "$GO_PATH" ]]; then
         echo "Removing existing Go installation..."
-        rm -rf "$GO_PATH"
+        sudo rm -rf "$GO_PATH"
     fi
 
     echo "Extracting Go tarball..."
-    tar -C "$INSTALL_PATH" -xzf "$TAR_FILE"
+    sudo tar -C "$INSTALL_PATH" -xzf "$TAR_FILE"
 
     echo "Configuring environment variables..."
     PROFILE="$HOME/.profile"
@@ -79,11 +79,11 @@ installGo() {
 
 # Dependencies to install
 declare -A POST_DEPS=( 
-    ["pip3"]="apt install -y python3-pip"
-    ["assetfinder"]="apt install -y assetfinder"
+    ["pip3"]="sudo apt install -y python3-pip"
+    ["assetfinder"]="sudo apt install -y assetfinder"
     ["subfinder"]="GO111MODULE=on go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
     ["hakrawler"]="go install -v github.com/hakluke/hakrawler@latest"
-    ["whois"]="apt install -y whois"
+    ["whois"]="sudo apt install -y whois"
     ["httpx"]="GO111MODULE=on go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest"
     ["gau"]="GO111MODULE=on go install github.com/lc/gau/v2/cmd/gau@latest"
 )
