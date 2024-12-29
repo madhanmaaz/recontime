@@ -23,14 +23,14 @@ fi
 echo "Configuring recontime command..."
 RECONTIME_PATH="$PWD/recontime.py"
 if [[ -f "$RECONTIME_PATH" ]]; then
-    BASHRC="$HOME/.bashrc"
-    if ! grep -q "alias recontime=" "$BASHRC"; then
-        echo -e "\n# Alias for recontime\nalias recontime='python3 $RECONTIME_PATH'" >> "$BASHRC"
-        echo "Alias for recontime added to $BASHRC"
+    PROFILE="$HOME/.profile"
+    if ! grep -q "alias recontime=" "$PROFILE"; then
+        echo -e "\n# Alias for recontime\nalias recontime='python3 $RECONTIME_PATH'" >> "$PROFILE"
+        echo "Alias for recontime added to $PROFILE"
     else
-        echo "Alias for recontime already exists in $BASHRC"
+        echo "Alias for recontime already exists in $PROFILE"
     fi
-    source "$BASHRC"
+    source "$PROFILE"
 else
     echo "recontime.py not found at $RECONTIME_PATH. Please run the script at the tool location."
     exit 1
@@ -60,15 +60,15 @@ installGo() {
     tar -C "$INSTALL_PATH" -xzf "$TAR_FILE"
 
     echo "Configuring environment variables..."
-    BASHRC="$HOME/.bashrc"
-    if ! grep -q "export PATH=\"${GO_BIN_PATH}:\$PATH\"" "$BASHRC"; then
-        echo -e "\n# Go environment setup\nexport PATH=\"${GO_BIN_PATH}:\$PATH\"" >> "$BASHRC"
+    PROFILE="$HOME/.profile"
+    if ! grep -q "export PATH=\"${GO_BIN_PATH}:\$PATH\"" "$PROFILE"; then
+        echo -e "\n# Go environment setup\nexport PATH=\"${GO_BIN_PATH}:\$PATH\"" >> "$PROFILE"
     fi
 
-    if ! grep -q "export PATH=\"${PKG_BIN_PATH}:\$PATH\"" "$BASHRC"; then
-        echo -e "\n# Add local Go binaries\nexport PATH=\"${PKG_BIN_PATH}:\$PATH\"" >> "$BASHRC"
+    if ! grep -q "export PATH=\"${PKG_BIN_PATH}:\$PATH\"" "$PROFILE"; then
+        echo -e "\n# Add local Go binaries\nexport PATH=\"${PKG_BIN_PATH}:\$PATH\"" >> "$PROFILE"
     fi
-    source "$BASHRC"
+    source "$PROFILE"
 
     echo "Verifying Go installation..."
     go version || { echo -e "${RED}Go installation failed.${RESET}"; exit 1; }
@@ -78,7 +78,7 @@ installGo() {
 }
 
 # Dependencies to install
-declare -A POST_DEPS=(
+declare -A POST_DEPS=( 
     ["pip3"]="apt install -y python3-pip"
     ["assetfinder"]="apt install -y assetfinder"
     ["subfinder"]="GO111MODULE=on go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
