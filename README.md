@@ -16,22 +16,13 @@ cd recontime
 ```
 - install dependencies
 ```bash
-python3 install.py
+sudo ./install.sh
 ```
 - run
 ```bash
-python3 recontime.py
+recontime domains.txt
 ```
 
-- to use recontime from any of your directory
-  
-```bash
-nano ~/.bashrc
-```
-- add this line in end of the file and reopen the terminal. 
-```bash
-alias recontime='python3 path-to-recontime.py'
-```
 ## Screenshots
 
 ![App Screenshot](./scr/scr-1.png)

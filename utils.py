@@ -1,6 +1,6 @@
-import colorama
 
 try:
+    import colorama
     RED = colorama.Fore.RED
     GREEN = colorama.Fore.GREEN
     CYAN = colorama.Fore.CYAN
